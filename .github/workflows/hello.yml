@@ -2,6 +2,9 @@ name: Hello CI
 
 on: push
 
+permissions:
+  contents: read
+
 jobs:
   hello:
     runs-on: ubuntu-latest
