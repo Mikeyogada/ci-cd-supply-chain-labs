@@ -1,0 +1,12 @@
+name: Lab A1 - Control Plane
+
+#the github action command,expecting job to execute on this action
+on: push
+
+#there is a job to be executed, runs on latest(SaaS runner, & hello world sample)
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello from the runner"
+
