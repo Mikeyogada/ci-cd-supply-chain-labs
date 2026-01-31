@@ -6,7 +6,7 @@ jobs:
   lifecycle:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Step1: start"
+      - run: echo "Step 1: start"
       - run: sleep 5 
       - run: echo "Step 2: middle"
       - run: echo "data" > file.txt
