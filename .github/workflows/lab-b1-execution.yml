@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: uname -a
-      - run: echo "I love Stacey"
+      - run: echo "Mikey Ogada"
       - run: pwd
       - run: hostname
 
