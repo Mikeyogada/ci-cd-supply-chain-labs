@@ -1,8 +1,9 @@
 name: Lab B1 - Execution Flow
 
-on: 
+on:
   push:
-
+    branches:
+      - main
 jobs:
   lifecycle:
     runs-on: ubuntu-latest
