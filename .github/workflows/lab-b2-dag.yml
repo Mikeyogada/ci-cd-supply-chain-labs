@@ -5,7 +5,7 @@ on: push
 
 jobs:
   job-a:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Job A"
 
