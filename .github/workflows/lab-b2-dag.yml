@@ -1,0 +1,15 @@
+name: LabB2 - DAG 
+
+on: push
+
+
+jobs:
+  job-a:
+    run-on: ubuntu-latesy
+    steps:
+      - run: echo "Job A"
+
+  job-b:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job B"
