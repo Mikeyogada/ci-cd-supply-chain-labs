@@ -1,15 +1,16 @@
-name: Lab B1 - Execution Flow
+name: Lab B1 - Execution flow
 
-on:
-  push:
-    branches:
-      - main
+#the github action command,expecting job to execute on this action
+on: push
+
+#there is a job to be executed, runs on latest(SaaS runner, & hello world sample)
 jobs:
   lifecycle:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Step 2: middle"
-      - run: echo "data" > file.txt
-      - run: cat file.txt
-      - run: echo "Step 3: end"
+      - run: echo "Step 1: Start"
+      - run: uname -a
+      - run: echo "I love Stacey"
+      - run: pwd
+      - run: hostname
 
