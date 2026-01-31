@@ -1,4 +1,4 @@
-name: Lab B1 - execution flow
+name: Lab B1 - Execution Flow
 
 on: push
 
@@ -12,6 +12,5 @@ jobs:
       - run: echo "data" > file.txt
       - run: cat file.txt
       - run: echo "Step 3: end"
-
 
 
