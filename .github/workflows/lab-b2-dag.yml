@@ -10,6 +10,7 @@ jobs:
       - run: echo "Job A"
 
   job-b:
+    needs: job-a
     runs-on: ubuntu-latest
     steps:
       - run: echo "Job B"
