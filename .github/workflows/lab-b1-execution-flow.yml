@@ -1,0 +1,14 @@
+name: Lab B1 - execution flow
+
+on: push
+
+jobs:
+  lifecycle:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Step1: start"
+      - run: sleep 5 
+      - run: echo "Step 2: middle"
+      - run: echo "data" > file.txt
+      - run: cat file.txt
+      - run: echo "Step 3: end"
