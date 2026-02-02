@@ -1,0 +1,16 @@
+name: Lab C1 - Job Isolation
+
+on: push
+
+jobs:
+  writer:
+    runs-on:ubuntu-latest
+    steps:
+      - run: echo "secret" > secret.txt
+
+  reader:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cat secret.txt
+
+
