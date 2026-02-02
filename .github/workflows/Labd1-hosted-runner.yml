@@ -1,0 +1,9 @@
+name: Lab D1 - Ephemeral Runner
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "temp" > /tmp/test.txt
