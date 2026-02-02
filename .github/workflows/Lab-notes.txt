@@ -1,0 +1,16 @@
+LabB2 - Job Graph
+DAG - Creates a workflow where job run sequentially by default. Here JobA runs then JobB runs in concurrence.
+
+You can also enforce the order, by having needs: job-a
+
+
+C. Trust Boundaries
+Creating isolation workflow
+
+Jobs runs in a clean,isolated environment, where no filesystem, memory or state are shared unless explicity passed to it.
+
+Reason	              Explanation
+🔐 Security	        Prevents one job from tampering with another
+🔁 Reproducibility	Every job starts from known state
+🧨 Blast radius	        Compromise is contained to a single job
+🧪 Determinism	        No “it worked because a file existed
