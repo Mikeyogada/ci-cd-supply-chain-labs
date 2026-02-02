@@ -1,0 +1,14 @@
+name: Lab E1 - Environments
+
+on: push
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Dev-stage"
+
+  prod:
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo "Prod stage"
