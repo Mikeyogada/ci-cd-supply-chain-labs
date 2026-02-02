@@ -26,3 +26,7 @@ WIth a wrong token, push was rejected, error indicated missing workflow scope an
 - Github treats workflow configuration as a higher-trust asset than normal code. CI config is priviledged control plane, not application code.
 
 Reason: CI workflow files are like root access to your filesystem, a place where secrets are injected, engine of your pipeline.
+
+
+Lab D - HOSTED RUNNER EPHEMERALLY
+ Running a job on github defaults to a hosted runner, which starts and is recycled at the end of every job cycle. Once the job finishes, the runner is destroyed and files gone forever.
