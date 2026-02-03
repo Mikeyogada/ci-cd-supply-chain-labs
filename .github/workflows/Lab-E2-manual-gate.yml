@@ -1,0 +1,17 @@
+name: lab - E2 - Environments
+
+on: push
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Dev Stage"
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - run: ccho "Deploying to Prod"
+    
