@@ -13,4 +13,3 @@ jobs:
     environment: prod
     steps:
       - run: ccho "Deploying to Prod"
-    
