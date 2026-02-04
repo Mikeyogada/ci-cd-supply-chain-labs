@@ -15,10 +15,10 @@ jobs:
   consume:
     needs: build
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/download-artefact@v4
-          with:
-            name:demo
-        - run: cat artefact.txt
+    steps:
+      - uses: actions/download-artefact@v4
+        with:
+          name:demo
+      - run: cat artefact.txt
 
 #This shows that jobs can share an artefact but cannot share files as denoted in previous jobs.
