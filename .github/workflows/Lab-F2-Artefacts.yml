@@ -1,0 +1,24 @@
+name: Lab F2 - Artefacts
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "artifact data" > artifact.txt
+      - uses: actions/upload-artefacts@v4
+        with:
+          name: demo
+          path: artifact.txt
+
+  consume:
+    needs: build
+    runs-on: ubuntu-latest
+      steps:
+        - uses: actions/download-artefact@v4
+          with:
+            name:demo
+        - run: cat artefact.txt
+
+#This shows that jobs can share an artefact but cannot share files as denoted in previous jobs.
