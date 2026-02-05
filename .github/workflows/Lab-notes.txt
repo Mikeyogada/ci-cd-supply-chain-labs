@@ -30,3 +30,52 @@ Reason: CI workflow files are like root access to your filesystem, a place where
 
 Lab D - HOSTED RUNNER EPHEMERALLY
  Running a job on github defaults to a hosted runner, which starts and is recycled at the end of every job cycle. Once the job finishes, the runner is destroyed and files gone forever.
+
+LAB E: ENVIRONMENTS
+
+- in ci/cd environments, dev and prod are more of logical constraints than physical infrastracture.
+
+Dev & Prod mean:
+- Intent
+- Rules
+- Risk level
+- Controls
+
+An environment can define:
+- Required approvals
+- Secret scopes
+- Deployment rules
+- Protection policies
+- Audit visibility
+
+It does not define:
+- What runner is used
+- Where code is run
+
+This seperation allows:
+- Same code,different controls
+- Same runner,different rules
+- Strong governance without duplication
+
+* A prod job does not automatically mean prod infra, it may mean higher trust expectations and stricter controls, unless youe explicitly define it.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAB F2: Artefacts
+
+* Jobs can share artefacts but cannot share files
+
+Key lesson: Artefacts can be shared, and read across different jobs
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAB G2: Job Identity
+Identities are scoped to jobs, each job has its own identity
+- By deafult it has read permissions, and so cannot push
+- Write needs to be explicitly declared
+- Permissions: contents: write, permits a push
+
+
+Key lesson: Identiy is job-scoped
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
