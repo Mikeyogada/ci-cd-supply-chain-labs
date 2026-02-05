@@ -2,6 +2,9 @@ name: Lab G2 - Job Identity
 
 on: push
 
+permissions:
+  content: write
+
 
 jobs:
   test-write:
@@ -12,4 +15,4 @@ jobs:
       - run: | 
           echo "Attempting to push from CI" 
           git status
-          git pull
+          git push
