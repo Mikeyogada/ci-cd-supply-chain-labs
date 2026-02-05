@@ -1,0 +1,15 @@
+name: Lab G2 - Job Identity
+
+on: push
+
+
+jobs:
+  test-write:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: | 
+          echo "Attempting to push from CI" 
+          git status
+          git push
