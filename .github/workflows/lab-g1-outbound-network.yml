@@ -1,0 +1,13 @@
+name: lab- G1 - Outbound - Network
+
+on: push
+
+jobs:
+  outbound-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Outbound connectivity
+        run: |
+          echo" Attempting network connectivity ..."             
+          curl -I https://example.com
+
