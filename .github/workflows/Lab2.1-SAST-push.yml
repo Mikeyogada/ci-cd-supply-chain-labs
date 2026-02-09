@@ -1,0 +1,39 @@
+name: SAST - On-push (Last commit)
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+    steps: #check out your repo so that the workflow can access it
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install Semgrep #install semgrep and dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install semgrep
+
+      - name: Get Changed files #get files changed in the last commit and put them in a seperate txt file
+        id: diff
+        run: |
+          git diff --name-only HEAD~1 HEAD > changed_files.txt
+          cat changed_files.txt
+
+      - name: Run SAST on last commit #actual SAST tool analysis
+        run: |
+          if [ -s changed_files.txt ]; then
+            semgrep scan \
+              --config=auto \
+              --severity=ERROR \
+              $(cat changed_files.txt)
+          else
+            echo "No files changed"
+          fi
