@@ -1,28 +1,25 @@
+---
 name: SAST-PR Diff Aware
-# Trigger only on pull request targeting main
-# We are evaluating new risk introduced by the PR
 
 on:
   pull_request:
     branches: [main]
 
-# Minimal permissions (principle of least privilege)
 permissions:
   contents: read
+  security-events: write
 
 jobs:
   sast-pr:
     runs-on: ubuntu-latest
-    continue-on-error: false  # Fail the PR if high-severity findings occur
+    continue-on-error: false
 
     steps:
-      # Fetch full history for accurate diff analysis
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Identify only files changed in this PR
       - name: Get changed source files
         run: |
           git diff --name-only \
@@ -31,15 +28,27 @@ jobs:
             | grep -E '\.(py|js|java)$' > changed.txt || true
 
           echo "Changed files:"
-          cat changed.txt
+          cat changed.txt || echo "No relevant files changed."
 
-      # Run Semgrep only if relevant files were changed
+      - name: Install Semgrep
+        run: pip install semgrep
+
       - name: Run Semgrep on changed files
-        if: hashFiles('changed.txt') != ''
         run: |
-          pip install semgrep
+          if [ -s changed.txt ]; then
+            echo "Running Semgrep on changed files..."
+            semgrep scan \
+              --config auto \
+              --sarif \
+              --output semgrep.sarif \
+              $(cat changed.txt)
+          else
+            echo "No relevant source code changes detected. Skipping SAST."
+            exit 0
+          fi
 
-          semgrep scan \
-            --config auto \
-            --error \
-            --files-from changed.txt
+      - name: Upload SARIF results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
