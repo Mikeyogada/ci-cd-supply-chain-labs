@@ -1,0 +1,45 @@
+name: SAST-PR Diff Aware
+# Trigger only on pull request targeting main
+# We are evaluating new risk introduced by the PR
+
+on:
+  pull_request:
+    branches: [main]
+
+# Minimal permissions (principle of least privilege)
+permissions:
+  contents: read
+
+jobs:
+  sast-pr:
+    runs-on: ubuntu-latest
+    continue-on-error: false  # Fail the PR if high-severity findings occur
+
+    steps:
+      # Fetch full history for accurate diff analysis
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Identify only files changed in this PR
+      - name: Get changed source files
+        run: |
+          git diff --name-only \
+            ${{ github.event.pull_request.base.sha }} \
+            ${{ github.event.pull_request.head.sha }} \
+            | grep -E '\.(py|js|java)$' > changed.txt || true
+
+          echo "Changed files:"
+          cat changed.txt
+
+      # Run Semgrep only if relevant files were changed
+      - name: Run Semgrep on changed files
+        if: hashFiles('changed.txt') != ''
+        run: |
+          pip install semgrep
+
+          semgrep scan \
+            --config auto \
+            --error \
+            --files-from changed.txt
