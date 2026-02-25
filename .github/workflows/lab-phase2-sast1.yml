@@ -24,5 +24,6 @@ jobs:
     # Run the Semgrep scan with the specified configuration and output format. The results are saved to a file named semgrep-results.json for further analysis.
       - name: Run Semgrep scan #Severity level is set to ERROR, which means that only issues classified as errors will be included in the results. The output format is set to JSON, which allows for easy parsing and analysis of the results.
         run: semgrep --config=auto --severity=ERROR --output-format=json > semgrep-results.json
+        #The --config=auto option tells Semgrep to automatically select the appropriate rules based on the codebase being scanned. This allows for a more tailored and effective scan, as Semgrep will choose rules that are relevant to the programming languages and frameworks used in the project.
 
 
