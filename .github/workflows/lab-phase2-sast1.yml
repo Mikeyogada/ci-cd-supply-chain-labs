@@ -24,12 +24,13 @@ jobs:
     # Run the Semgrep scan with the specified configuration and output format. The results are saved to a file named semgrep-results.json for further analysis.
       - name: Run Semgrep scan #Severity level is set to ERROR, which means that only issues classified as errors will be included in the results. The output format is set to JSON, which allows for easy parsing and analysis of the results.
         run: |
-            semgrep --config=auto --severity ERROR --json -o semgrep-results.json
+            semgrep --config=auto --severity ERROR --sarif -o semgrep-results.sarif
         #The --config=auto option tells Semgrep to automatically select the appropriate rules based on the codebase being scanned. This allows for a more tailored and effective scan, as Semgrep will choose rules that are relevant to the programming languages and frameworks used in the project.
 
-    # upload as an artifact to be downloaded later, this allows you to access the results of the SAST scan after the workflow has completed, which can be useful for further analysis or reporting.
-      - name: Upload Semgrep results
-        uses: actions/upload-artifact@v4
+    # upload the SARIF results as an artifact, which allows them to be accessed and analyzed later. The artifact is named semgrep-results and contains the semgrep-results.json file generated in the previous step.
+      - name: Upload SARIF results
+        uses: actions/upload-artifact@v3
         with:
-          name: semgrep-results
-          path: semgrep-results.json
+            name: semgrep-results
+            path: semgrep-results.sarif
+
