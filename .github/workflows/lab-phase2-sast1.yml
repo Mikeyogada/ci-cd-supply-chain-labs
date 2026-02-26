@@ -29,7 +29,7 @@ jobs:
 
     # upload the SARIF results as an artifact, which allows them to be accessed and analyzed later. The artifact is named semgrep-results and contains the semgrep-results.json file generated in the previous step.
       - name: Upload SARIF results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
             name: semgrep-results
             path: semgrep-results.sarif
