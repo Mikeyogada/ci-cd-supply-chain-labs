@@ -10,6 +10,7 @@ on:
 #permissions required for this workflow to run, in this case we only need read access to the repository contents to perform the SAST scan.
 permissions:
   contents: read
+  security-events: write
 
 #jobs that should run as part of this workflow
 jobs:
@@ -29,8 +30,7 @@ jobs:
 
     # upload the SARIF results as an artifact, which allows them to be accessed and analyzed later. The artifact is named semgrep-results and contains the semgrep-results.json file generated in the previous step.
       - name: Upload SARIF results
-        uses: actions/upload-artifact@v4
+        uses: github/codeql-action/upload-sarif@v3
         with:
-            name: semgrep-results
-            path: semgrep-results.sarif
+            sarif_file: semgrep-results.sarif
 
