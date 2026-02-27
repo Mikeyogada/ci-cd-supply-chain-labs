@@ -38,7 +38,7 @@ def ping():
     return {"status": "pinged"}
 
 @app.route("/activity") #define a new route '/activity' to handle user activity requests
-def get_user():
+def activity():
     username = request.args.get("actions")
     if username != API_SECRET:
         return {"error": "Unauthorized"}, 401
