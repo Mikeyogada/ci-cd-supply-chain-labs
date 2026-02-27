@@ -37,6 +37,19 @@ def ping():
 
     return {"status": "pinged"}
 
+@app.route("/activity") #define a new route '/activity' to handle user activity requests
+def activity():
+    username = request.args.get("actions")
+    if username != API_SECRET:
+        return {"error": "Unauthorized"}, 401
+    # Simulate fetching user activity
+    activity = [
+        {"action": "login", "timestamp": "2024-01-01T12:00:00Z"},
+        {"action": "viewed_profile", "timestamp": "2024-01-01T12:05:00Z"},
+        {"action": "logout", "timestamp": "2024-01-01T12:10:00Z"},
+    ]
+    return {"activity": activity}
+
 
 if __name__ == "__main__":
     app.run(debug=True)
