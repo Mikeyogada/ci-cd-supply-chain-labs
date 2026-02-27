@@ -1,0 +1,36 @@
+name: SAST - Basic
+
+#This workflow is triggered on push and pull request events to the main branch. It performs a Static Application Security Testing (SAST) scan on the codebase to identify potential security vulnerabilities.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+#permissions required for this workflow to run, in this case we only need read access to the repository contents to perform the SAST scan.
+permissions:
+  contents: read
+  security-events: write
+
+#jobs that should run as part of this workflow
+jobs:
+  sast-scan:
+    runs-on: ubuntu-latest
+    steps: #checkout the code from the repository to the runner, which allows the subsequent steps to access the codebase for analysis.ß
+      - uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: pip install semgrep
+      
+    # Run the Semgrep scan with the specified configuration and output format. The results are saved to a file named semgrep-results.json for further analysis.
+      - name: Run Semgrep scan #Severity level is set to ERROR, which means that only issues classified as errors will be included in the results. The output format is set to JSON, which allows for easy parsing and analysis of the results.
+        run: |
+            semgrep --config=auto --severity ERROR --sarif -o semgrep-results.sarif
+        #The --config=auto option tells Semgrep to automatically select the appropriate rules based on the codebase being scanned. This allows for a more tailored and effective scan, as Semgrep will choose rules that are relevant to the programming languages and frameworks used in the project.
+
+    # upload the SARIF results as an artifact, which allows them to be accessed and analyzed later. The artifact is named semgrep-results and contains the semgrep-results.json file generated in the previous step.
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+            sarif_file: semgrep-results.sarif
+
